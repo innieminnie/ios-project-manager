@@ -31,6 +31,8 @@ class SheetViewController: UIViewController {
             completionHandler(currentItem)
         }
         
+        historyManager.setHistory(action: "Added", item: currentItem)
+        
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -51,6 +51,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
             projectFileManager.updateFile()
+            historyManager.setHistory(action: "Removed", item: board.item(at: indexPath.row))
         }
     }
 }
