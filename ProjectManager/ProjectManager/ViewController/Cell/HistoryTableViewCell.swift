@@ -7,8 +7,8 @@ class HistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subTitle: UILabel!
     
-    func configureLabel() {
-        self.title.text = historyVC.item[0]
-        self.subTitle.text = historyVC.itemInfo[0]
+    func configureLabel(with index: Int) {
+        self.title.text = historyManager.historyTitle[index]
+        self.subTitle.text = historyManager.historyDate[index]
     }
 }
