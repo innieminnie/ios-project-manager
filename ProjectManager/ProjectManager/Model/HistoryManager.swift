@@ -3,11 +3,12 @@ import Foundation
 class HistoryManager {
     static let shared = HistoryManager()
     
-    var historyTitle: [String] = ["1","2","3"]
-    var historyDate: [String] = ["11","22","33"]
+    var historyTitle: [String] = []
+    var historyDate: [String] = []
+    var modifyTitle: [String] = []
     
     private init() {
-        
+    
     }
 }
 
