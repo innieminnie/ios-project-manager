@@ -23,8 +23,7 @@ class NotificationManager {
         content.body = "금일 마감일이 도래한 목록이 있습니다."
         content.badge = 1
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        dateComponents.hour = 16
-        dateComponents.minute = 22
+        dateComponents.hour = 9
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: name, content: content, trigger: trigger)
         center.add(request, withCompletionHandler: nil)
