@@ -48,12 +48,12 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         
         if editingStyle == .delete {
             let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
+            notificationManager.removeNofiticaion(name: "\(board.item(at: indexPath.row).dueDate)")
             historyManager.historyContainer.append((historyLog.description, Date()))
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
             projectFileManager.updateFile()
-            notificationManager.removeNofiticaion(name: "\(board.item(at: indexPath.row).dueDate)")
         }
     }
 }

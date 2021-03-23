@@ -68,6 +68,7 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
+        notificationManager.removeNofiticaion(name: "\(String(describing: board?.item(at: index).dueDate))")
         if let board = board {
             updateItem(in: boardTableViewCell, at: index, on: board)
         }
