@@ -27,6 +27,8 @@ struct Item: Codable {
         self.progressStatus = progressStatus
         if self.progressStatus == ProgressStatus.done.rawValue {
             notificationManager.removeNofiticaion(name: "\(self.dueDate)")
+        } else {
+            notificationManager.configureNotification(name: "\(self.dueDate)", date: self.dueDate)
         }
     }
 }
