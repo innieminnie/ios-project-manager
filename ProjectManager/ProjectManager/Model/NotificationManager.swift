@@ -17,7 +17,7 @@ class NotificationManager {
         }
     }
     
-    func configureNotification(time: Double, name: String, date: Date) {
+    func configureNotification(name: String, date: Date) {
         content.title = "마감일"
         content.body = "금일 마감일이 도래한 목록이 있습니다."
         content.badge = 1

@@ -33,7 +33,7 @@ class SheetViewController: UIViewController {
         
         self.dismiss(animated: true, completion: nil)
         
-        notificationManager.configureNotification(time: 3, name: "NotificationFromDone", date: currentItem.dueDate)
+        notificationManager.configureNotification(name: "NotificationFromDone", date: currentItem.dueDate)
     }
     
     @IBAction private func tappedModeButton(_ sender: UIBarButtonItem) {
