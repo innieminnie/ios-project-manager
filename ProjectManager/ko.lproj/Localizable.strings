@@ -8,3 +8,7 @@
 "Project Manager" = "프로젝트 매니저";
 "Cancel" = "취소";
 "Edit" = "편집";
+
+"TODO"  = "해야할 일";
+"DOING" = "하고있는 일";
+"DONE"  =  "끝낸 일";

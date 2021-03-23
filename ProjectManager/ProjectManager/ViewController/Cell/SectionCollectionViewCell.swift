@@ -25,7 +25,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
     
     func updateHeaderLabels(with board: Board) {
         self.board = board
-        sectionTitleLabel.text = "\(board.title) "
+        sectionTitleLabel.text = board.title.localized
         boardItemCountLabel.text = "\(board.itemsCount)"
     }
 }
