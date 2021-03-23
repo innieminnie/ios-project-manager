@@ -79,7 +79,7 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
 
 extension ProjectManagerViewController {
     private func configureNavigationBar() {
-        titleNavigationBar.topItem?.title = "Project Manager"
+        titleNavigationBar.topItem?.title = "Project Manager".localized
     }
     
     private func createNewTodoItem() {
@@ -169,5 +169,10 @@ extension ProjectManagerViewController {
             }
         }
         monitor.start(queue: DispatchQueue.global(qos: .background))
+    }
+}
+extension String  {
+    var localized: String  {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 }
