@@ -29,6 +29,7 @@
 		D91EE2D125F74482003C86BD /* BoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */; };
 		D91EE2D625F86840003C86BD /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */; };
 		D93282BE2609964F0062B0C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D93282C02609964F0062B0C3 /* Localizable.strings */; };
+		D93282C9260A0EFC0062B0C3 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93282C8260A0EFC0062B0C3 /* Extension.swift */; };
 		D9EAB41E26064A5D0007F8B7 /* ProjectFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		D93282B82609875C0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D93282B92609875C0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		D93282BF2609964F0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D93282C8260A0EFC0062B0C3 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,9 +157,18 @@
 				9AE07A4A25F9D23200C9F434 /* Supporting Files */,
 				9A59AED825FAEC6000643302 /* Model */,
 				9AE07A4C25F9D2F800C9F434 /* ViewController */,
+				D93282C7260A0EAB0062B0C3 /* Extensions */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D93282C7260A0EAB0062B0C3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D93282C8260A0EFC0062B0C3 /* Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +257,7 @@
 				9A56C5AA260841F800573BF3 /* HistoryLog.swift in Sources */,
 				9AA595CD26083C3C002E7C98 /* HistoryTableViewCell.swift in Sources */,
 				9AD9925B2609B59100A76F6C /* NotificationManager.swift in Sources */,
+				D93282C9260A0EFC0062B0C3 /* Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D91EE2D625F86840003C86BD /* SectionCollectionViewCell.swift in Sources */,

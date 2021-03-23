@@ -44,10 +44,6 @@ class NotificationManager {
             }
         }))
     }
-    
-    func getPendingNotificationRequests(completionHandler: ([UNNotificationRequest]) -> Void) {
-        
-    }
 }
 
 let notificationManager = NotificationManager.shared

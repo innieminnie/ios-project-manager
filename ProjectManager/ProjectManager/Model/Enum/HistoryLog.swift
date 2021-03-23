@@ -8,11 +8,11 @@ enum HistoryLog {
     var description: String {
         switch self {
         case .add(let title):
-            return "Added '\(title)'."
+            return String(format: NSLocalizedString("Added '%@'.", comment: ""), title)
         case .move(let title, let before,  let after):
-            return "Moved '\(title)' from \(before) to \(after)."
+            return String(format: NSLocalizedString("Moved '%@' from %@ to %@.", comment: ""), title, before.localized, after.localized)
         case .delete(let title, let before):
-            return "Removed '\(title)' from \(before)."
+            return String(format: NSLocalizedString("Removed '%@' from %@.", comment: ""), title.localized, before.localized)
         }
     }
 }
