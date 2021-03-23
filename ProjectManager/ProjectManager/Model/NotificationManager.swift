@@ -17,11 +17,12 @@ class NotificationManager {
         }
     }
     
-    func configureNotification(time: Double, name: String) {
+    func configureNotification(time: Double, name: String, date: Date) {
         content.title = "마감일"
         content.body = "금일 마감일이 도래한 목록이 있습니다."
         content.badge = 1
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: false)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: name, content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()
         center.add(request, withCompletionHandler: nil)
