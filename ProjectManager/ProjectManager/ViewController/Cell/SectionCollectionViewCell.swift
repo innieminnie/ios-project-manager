@@ -53,6 +53,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
             projectFileManager.updateFile()
+            notificationManager.removeNofiticaion(name: "\(board.item(at: indexPath.row).dueDate)")
         }
     }
 }
