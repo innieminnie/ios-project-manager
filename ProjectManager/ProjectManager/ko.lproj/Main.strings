@@ -34,3 +34,7 @@
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "xUH-QK-VRb"; */
 "xUH-QK-VRb.text" = "부제목"; //
+
+"jVd-H3-O0o.normalTitle" = "이전";
+
+"d6F-Z7-I3F.normalTitle" = "다음";
