@@ -26,7 +26,7 @@ struct Item: Codable {
     mutating func updateProgressStatus(with progressStatus: String) {
         self.progressStatus = progressStatus
         if self.progressStatus == ProgressStatus.done.rawValue {
-            notificationManager.removeNofiticaion(name: "\(self.dueDate)")
+            notificationManager.removeNofitication(name: "\(self.dueDate)")
         } else {
             notificationManager.configureNotification(name: "\(self.dueDate)", date: self.dueDate)
         }

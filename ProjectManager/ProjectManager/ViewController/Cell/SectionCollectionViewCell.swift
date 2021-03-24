@@ -48,11 +48,13 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         
         if editingStyle == .delete {
             let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
-            notificationManager.removeNofiticaion(name: "\(board.item(at: indexPath.row).dueDate)")
+            notificationManager.removeNofitication(name: "\(board.item(at: indexPath.row).dueDate)")
             historyManager.historyContainer.append((historyLog, Date()))
+            registerUndoDeleting(with: board.item(at: indexPath.row), at: indexPath.row)
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
+            NotificationCenter.default.post(name: NSNotification.Name("reloadRewindable"), object: nil)
             projectFileManager.updateFile()
         }
     }
@@ -158,6 +160,8 @@ extension SectionCollectionViewCell: AddItemDelegate {
             board.addItem(item)
             boardTableView.insertRows(at: [IndexPath(row: board.itemsCount - 1, section: 0)], with: .automatic)
             updateHeaderLabels(with: board)
+            self.registerUndoCreating()
+            NotificationCenter.default.post(name: NSNotification.Name("reloadRewindable"), object: nil)
         }
     }
 }
@@ -194,5 +198,66 @@ extension SectionCollectionViewCell {
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)
         }
+    }
+}
+extension  SectionCollectionViewCell {
+    func registerUndoCreating() {
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            if let board = self.board {
+                let index = board.itemsCount - 1
+                let deletingItem = board.item(at: index)
+                board.deleteItem(at: index)
+                notificationManager.removeNofitication(name: "\(String(describing: deletingItem.dueDate))")
+                self.boardTableView.reloadData()
+                self.updateHeaderLabels(with: board)
+                projectFileManager.updateFile()
+                selfTarget.registerRedoCreating(with: deletingItem)
+            }
+        })
+    }
+    
+    func registerUndoDeleting(with item: Item, at index: Int) {
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            if let board = self.board {
+                if index < board.itemsCount {
+                    board.insertItem(at: index, with: item)
+                } else {
+                    board.addItem(item)
+                }
+                
+                notificationManager.configureNotification(name: "\(item.dueDate)", date: item.dueDate)
+                self.boardTableView.reloadData()
+                self.updateHeaderLabels(with: board)
+                projectFileManager.updateFile()
+                selfTarget.registerRedoDeleting(at: index)
+            }
+        })
+    }
+    
+    func registerRedoCreating(with item: Item) {
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            if let board = self.board {
+                board.addItem(item)
+                notificationManager.configureNotification(name: "\(item.dueDate)", date: item.dueDate)
+                self.boardTableView.reloadData()
+                self.updateHeaderLabels(with: board)
+                projectFileManager.updateFile()
+                selfTarget.registerUndoCreating()
+            }
+        })
+    }
+    
+    func registerRedoDeleting(at index: Int) {
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            if let board = self.board {
+                let deletingItem = board.item(at: index)
+                board.deleteItem(at: index)
+                notificationManager.removeNofitication(name: "\(String(describing: deletingItem.dueDate))")
+                self.boardTableView.reloadData()
+                self.updateHeaderLabels(with: board)
+                projectFileManager.updateFile()
+                selfTarget.registerUndoDeleting(with: deletingItem, at: index)
+            }
+        })
     }
 }

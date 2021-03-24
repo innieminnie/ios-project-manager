@@ -9,6 +9,8 @@ protocol BoardTableViewCellDelegate: AnyObject {
 class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     @IBOutlet weak var networkLabel: UILabel!
     
@@ -16,13 +18,30 @@ class ProjectManagerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureNavigationBar()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
+        configureUndoRedoButton()
         configureNetworkMonitor()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadRewindable), name: NSNotification.Name("reloadRewindable"), object: nil)
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
         createNewTodoItem()
+    }
+    
+    @IBAction func tappedUndoButton(_ sender: UIButton) {
+        self.undoManager?.undo()
+        configureUndoRedoButton()
+    }
+    @IBAction func tappedRedoButton(_ sender: UIButton) {
+        self.undoManager?.redo()
+        configureUndoRedoButton()
+    }
+    
+    @objc func reloadRewindable(_ noti: Notification) {
+        configureUndoRedoButton()
     }
     
     @objc func reloadHeader(_ noti: Notification) {
@@ -68,7 +87,7 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
-        notificationManager.removeNofiticaion(name: "\(String(describing: board?.item(at: index).dueDate))")
+        notificationManager.removeNofitication(name: "\(String(describing: board?.item(at: index).dueDate))")
         if let board = board {
             updateItem(in: boardTableViewCell, at: index, on: board)
         }
@@ -80,6 +99,11 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
 extension ProjectManagerViewController {
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager".localized
+    }
+    
+    private func configureUndoRedoButton() {
+        undoButton.isEnabled = self.undoManager?.canUndo ?? false
+        redoButton.isEnabled = self.undoManager?.canRedo ?? false
     }
     
     private func createNewTodoItem() {
@@ -128,19 +152,12 @@ extension ProjectManagerViewController {
 extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate {
     @IBAction func showHistory(_ sender: Any) {
         let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "history") as! HistoryViewController
-        
         popoverContent.modalPresentationStyle = .popover
-        
-        _ = popoverContent.popoverPresentationController
-        
         if let popover = popoverContent.popoverPresentationController {
-            
             let viewForSource = sender as! UIView
             popover.sourceView = viewForSource
-            
             popover.sourceRect = viewForSource.bounds
             popoverContent.preferredContentSize = CGSize(width: 600,height: 600)
-            
             popover.delegate = self
         }
         
