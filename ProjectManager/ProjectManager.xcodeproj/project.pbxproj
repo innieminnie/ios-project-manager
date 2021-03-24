@@ -13,6 +13,7 @@
 		9A59AED525FAE83A00643302 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59AED425FAE83A00643302 /* Board.swift */; };
 		9A65FD3F2604429100F4B6B0 /* DecodeJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */; };
 		9A7E2053260AFBEA00FB1F37 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9A7E2052260AFBEA00FB1F37 /* Alamofire */; };
+		9A7E2056260AFE3300FB1F37 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E2055260AFE3300FB1F37 /* NetworkManager.swift */; };
 		9AA595CA26083A41002E7C98 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA595C926083A41002E7C98 /* HistoryManager.swift */; };
 		9AA595CD26083C3C002E7C98 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA595CC26083C3C002E7C98 /* HistoryTableViewCell.swift */; };
 		9AD9925B2609B59100A76F6C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD9925A2609B59100A76F6C /* NotificationManager.swift */; };
@@ -43,6 +44,7 @@
 		9A743383260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9A743384260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		9A743385260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9A7E2055260AFE3300FB1F37 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9AA595C926083A41002E7C98 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		9AA595CC26083C3C002E7C98 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		9AD9925A2609B59100A76F6C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				9AA595C926083A41002E7C98 /* HistoryManager.swift */,
 				D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */,
 				9AD9925A2609B59100A76F6C /* NotificationManager.swift */,
+				9A7E2055260AFE3300FB1F37 /* NetworkManager.swift */,
 				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
@@ -268,6 +271,7 @@
 				9AA595CA26083A41002E7C98 /* HistoryManager.swift in Sources */,
 				9A56C5AA260841F800573BF3 /* HistoryLog.swift in Sources */,
 				9AA595CD26083C3C002E7C98 /* HistoryTableViewCell.swift in Sources */,
+				9A7E2056260AFE3300FB1F37 /* NetworkManager.swift in Sources */,
 				9AD9925B2609B59100A76F6C /* NotificationManager.swift in Sources */,
 				D93282C9260A0EFC0062B0C3 /* Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
