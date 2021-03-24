@@ -1,0 +1,36 @@
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "1Iz-ek-qSt"; */
+"1Iz-ek-qSt.title" = "Terminé";
+
+/* Class = "UINavigationItem"; title = "TODO"; ObjectID = "8tB-ho-ekQ"; */
+"8tB-ho-ekQ.title" = "Plan";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "BsE-ch-KEa"; */
+"BsE-ch-KEa.title" = "Titre";
+
+/* Class = "UITextField"; placeholder = "Title"; ObjectID = "Ne9-CO-XbT"; */
+"Ne9-CO-XbT.placeholder" = "Titre";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VLk-en-wR1"; */
+"VLk-en-wR1.text" = "étiquette";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "eqg-sO-J0R"; */
+"eqg-sO-J0R.text" = "Titre";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "keU-l8-vF1"; */
+"keU-l8-vF1.title" = "annuler";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "nM4-H0-glM"; */
+"nM4-H0-glM.text" = "Entrez le contenu.";
+
+/* Class = "UIButton"; normalTitle = "History"; ObjectID = "tG9-hK-IlQ"; */
+"tG9-hK-IlQ.normalTitle" = "Histoire";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uzp-ac-dBR"; */
+"uzp-ac-dBR.text" = "étiquette";
+
+/* Class = "UILabel"; text = "네트워크에 연결되어 있지 않습니다."; ObjectID = "wrV-VT-ikv"; */
+"wrV-VT-ikv.text" = "Il n'est pas connecté au réseau..";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "xUH-QK-VRb"; */
+"xUH-QK-VRb.text" = "sous-titre";

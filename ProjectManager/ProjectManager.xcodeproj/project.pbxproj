@@ -39,6 +39,9 @@
 		9A56C5A9260841F800573BF3 /* HistoryLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryLog.swift; sourceTree = "<group>"; };
 		9A59AED425FAE83A00643302 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeJSON.swift; sourceTree = "<group>"; };
+		9A743383260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9A743384260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		9A743385260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9AA595C926083A41002E7C98 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		9AA595CC26083C3C002E7C98 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		9AD9925A2609B59100A76F6C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -213,6 +216,7 @@
 				en,
 				Base,
 				ko,
+				fr,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
@@ -274,6 +278,7 @@
 			children = (
 				C7431F0C25F51E1D0094C4CF /* Base */,
 				D93282B92609875C0062B0C3 /* ko */,
+				9A743384260ACF4700212DF8 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 			children = (
 				C7431F1125F51E1E0094C4CF /* Base */,
 				D93282B82609875C0062B0C3 /* ko */,
+				9A743383260ACF4700212DF8 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D93282BF2609964F0062B0C3 /* ko */,
+				9A743385260ACF4700212DF8 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
