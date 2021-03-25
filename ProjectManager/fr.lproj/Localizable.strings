@@ -1,0 +1,11 @@
+"Project Manager" = "Chef de projet";
+"Cancel" = "Annuler";
+"Edit" = "mise en forme";
+
+"TODO"  = "Plan";
+"DOING" = "En cours";
+"DONE"  =  "Terminé";
+
+"Added '%@'." = "'%@'Ajouter.";
+"Moved '%@' from %@ to %@." = "'%@'un %@dans %@to Nous avons bougé.";
+"Removed '%@' from %@." = "'%@'un supprimer.";
