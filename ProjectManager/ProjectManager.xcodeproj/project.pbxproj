@@ -85,13 +85,13 @@
 		9A59AED825FAEC6000643302 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9A59AED425FAE83A00643302 /* Board.swift */,
 				9A32B08A260192C800C58CFB /* BoardManager.swift */,
 				9AA595C926083A41002E7C98 /* HistoryManager.swift */,
 				D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */,
 				9AD9925A2609B59100A76F6C /* NotificationManager.swift */,
 				9A7E2055260AFE3300FB1F37 /* NetworkManager.swift */,
-				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
 			);
