@@ -128,20 +128,29 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
         }
         
         coordinator.session.loadObjects(ofClass: NSString.self) { [self] items in
-            var indexPaths = [IndexPath]()
-            let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
-            
-            let count = self.rowCount.integer(forKey: "indexCount")
-            let boardNumber = self.boardCount.integer(forKey: "boardCount")
-            
-            if let board = self.board {
-                board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
-                board.items[indexPath.row].updateProgressStatus(with: board.title)
-                indexPaths.append(indexPath)
-                tableView.insertRows(at: indexPaths, with: .automatic)
-                updateHeaderLabels(with: board)
+            var sourceIndexPaths = [IndexPath]()
+            if let (sourceBoard, sourceIndexPath, sourceTableView) = coordinator.session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
+                sourceIndexPaths.append(sourceIndexPath)
+                
+                var indexPaths = [IndexPath]()
+                let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
+                
+                let count = self.rowCount.integer(forKey: "indexCount")
+                let boardNumber = self.boardCount.integer(forKey: "boardCount")
+                
+                if let board = self.board {
+                    board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
+                    board.items[indexPath.row].updateProgressStatus(with: board.title)
+                    indexPaths.append(indexPath)
+                    tableView.insertRows(at: indexPaths, with: .automatic)
+                    updateHeaderLabels(with: board)
+                }
+                
+                registerUndoMoving(sourceIndexPaths, sourceBoard, sourceTableView, indexPaths)
             }
-
+            
+            NotificationCenter.default.post(name: NSNotification.Name("reloadRewindable"), object: nil)
+            
             self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
             projectFileManager.updateFile()
         }
@@ -258,6 +267,56 @@ extension  SectionCollectionViewCell {
                 projectFileManager.updateFile()
                 selfTarget.registerUndoDeleting(with: deletingItem, at: index)
             }
+        })
+    }
+    
+    private func registerUndoMoving(_ sourceIndexPaths: [IndexPath], _ sourceBoard: Board, _ sourceTableView: UITableView, _ indexPaths: [IndexPath]) {
+        
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            var targetItem = Item(title: "", description: "", progressStatus: "", timeStamp: 0)
+            
+            guard let indexPath = indexPaths.first, let sourceIndexPath = sourceIndexPaths.first else {
+                print("indexPath err")
+                return
+            }
+            
+            if let board = self.board {
+                targetItem = board.item(at: indexPath.row)
+                board.deleteItem(at: indexPath.row)
+                self.boardTableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
+            targetItem.updateProgressStatus(with: sourceBoard.title)
+            sourceBoard.insertItem(at: sourceIndexPath.row, with: targetItem)
+            sourceTableView.insertRows(at: sourceIndexPaths, with: .automatic)
+            
+            NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)
+            projectFileManager.updateFile()
+            selfTarget.registerRedoMoving(indexPaths, sourceBoard, sourceTableView, sourceIndexPaths, self.board!, self.boardTableView)
+        })
+    }
+    
+    private func registerRedoMoving(_ indexPaths: [IndexPath], _ sourceBoard: Board, _ sourceTableView: UITableView, _ sourceIndexPaths: [IndexPath], _ destinationBoard: Board, _ destinationBoardTableView: UITableView) {
+        
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            var targetItem = Item(title: "", description: "", progressStatus: "", timeStamp: 0)
+            
+            guard let indexPath = indexPaths.first, let sourceIndexPath = sourceIndexPaths.first else {
+                print("indexPath err")
+                return
+            }
+            
+            targetItem = sourceBoard.item(at: sourceIndexPath.row)
+            sourceBoard.deleteItem(at: sourceIndexPath.row)
+            sourceTableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            
+            targetItem.updateProgressStatus(with: destinationBoard.title)
+            destinationBoard.insertItem(at: indexPath.row, with: targetItem)
+            destinationBoardTableView.insertRows(at: indexPaths, with: .automatic)
+            
+            NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)
+            projectFileManager.updateFile()
+            selfTarget.registerUndoMoving(sourceIndexPaths, sourceBoard, sourceTableView, indexPaths)
         })
     }
 }
