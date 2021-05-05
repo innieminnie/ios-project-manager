@@ -58,16 +58,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zfw-Hu-bHb">
-                                                    <rect key="frame" x="10" y="10" width="168" height="41"/>
+                                                    <rect key="frame" x="10" y="10" width="168" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzp-ac-dBR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="41"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLk-en-wR1">
-                                                            <rect key="frame" x="88" y="0.0" width="80" height="41"/>
+                                                            <rect key="frame" x="88" y="0.0" width="80" height="80"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="VLk-en-wR1" secondAttribute="height" multiplier="1:1" id="qet-Qo-Vfa"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -75,7 +78,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r93-ie-rsO">
-                                                    <rect key="frame" x="0.0" y="61" width="540" height="518"/>
+                                                    <rect key="frame" x="0.0" y="100" width="540" height="479"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="J7u-u0-CoX" id="idx-iW-CdA"/>

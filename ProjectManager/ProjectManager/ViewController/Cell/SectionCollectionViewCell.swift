@@ -196,7 +196,7 @@ extension SectionCollectionViewCell {
         boardItemCountLabel.backgroundColor = .black
         boardItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
         boardItemCountLabel.layer.masksToBounds = true
-        boardItemCountLabel.layer.cornerRadius = 10
+        boardItemCountLabel.layer.cornerRadius = boardItemCountLabel.frame.height / 4
     }
     
     private func removeSourceTableData(localContext: Any?) {
