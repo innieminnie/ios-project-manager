@@ -128,7 +128,13 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
     Undo/Redo 버튼의 액션은 ProjectManagerViewController에서 수행하지만, Undo/Redo의 대상은 SectionCollectionViewCell의 board에 담긴 item이다. Undo/Redo의 대상에게 어떻게 버튼 탭 액션에 따른 기능 수행을 요구해야할까?
 
 - 해결방안<br>
-    <b>UndoManager</b>의 사용을 도입했습니다. UndoManager는 싱글톤타입으로 앱 전역에서 발생하는 이벤트에 대한 <b>Task Management</b>를 담당합니다. ProjectManagerViewController에선 버튼의 탭 동작에 따라 undoManager.undo(), undoManager.redo() 를 수행하며, SectionCollectionViewCell에선 아이템의 생성/이동/삭제 액션이 실행될 때마다 undoManager의 registerUndo() 메소드를 활용하여 동작을 등록합니다.
+    <b>UndoManager</b>의 사용을 도입했습니다. UndoManager는 싱글톤타입으로 앱 전역에서 발생하는 이벤트에 대한 <b>Task Management</b>를 담당합니다. 
+    
+    ProjectManagerViewController - 버튼의 탭 동작에 따라 undoManager.undo(), undoManager.redo() 를 수행합니다.
+    
+     SectionCollectionViewCell - 아이템의 생성/이동/삭제 액션이 실행될 때마다 undoManager의 registerUndo() 메소드를 활용하여 동작을 등록합니다.<br><br>
+
+
     | 타입명 | 메소드명 | 기능설명|
     | --- | --- | --- |
     | ProjectManagerViewController | registerUndoCreating() | item 생성에 대한 undo (item 생성 취소) 등록 |
@@ -235,7 +241,7 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
       static let shared = HistoryManager()
       var historyContainer = [(HistoryLog, Date)]()
     }
-    
+
     let historyManager = HistoryManager.shared
     ``` 
     <br>
