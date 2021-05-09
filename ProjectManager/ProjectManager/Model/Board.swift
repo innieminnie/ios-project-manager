@@ -29,6 +29,9 @@ class Board {
     
     func updateItem(at index: Int, with item: Item) {
        items[index].updateItem(item)
+        if item.progressStatus != ProgressStatus.done.rawValue {
+            notificationManager.configureNotification(name: "\(item.dueDate)", date: item.dueDate)
+        }
     }
 
     func deleteItem(at index: Int) {

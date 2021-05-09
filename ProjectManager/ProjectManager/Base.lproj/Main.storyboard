@@ -58,16 +58,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zfw-Hu-bHb">
-                                                    <rect key="frame" x="10" y="10" width="168" height="41"/>
+                                                    <rect key="frame" x="10" y="10" width="168" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzp-ac-dBR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="41"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLk-en-wR1">
-                                                            <rect key="frame" x="88" y="0.0" width="80" height="41"/>
+                                                            <rect key="frame" x="88" y="0.0" width="80" height="80"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="VLk-en-wR1" secondAttribute="height" multiplier="1:1" id="qet-Qo-Vfa"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -75,7 +78,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r93-ie-rsO">
-                                                    <rect key="frame" x="0.0" y="61" width="540" height="518"/>
+                                                    <rect key="frame" x="0.0" y="100" width="540" height="479"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="J7u-u0-CoX" id="idx-iW-CdA"/>
@@ -113,6 +116,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="eiT-6J-gVd">
+                                <rect key="frame" x="980" y="770" width="90" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVd-H3-O0o">
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="30"/>
+                                        <state key="normal" title="Undo"/>
+                                        <connections>
+                                            <action selector="tappedUndoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1OY-no-Fao"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6F-Z7-I3F">
+                                        <rect key="frame" x="54" y="0.0" width="36" height="30"/>
+                                        <state key="normal" title="Redo"/>
+                                        <connections>
+                                            <action selector="tappedRedoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dBM-3x-jOB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -120,19 +142,23 @@
                             <constraint firstItem="7Pi-0Z-K0O" firstAttribute="top" secondItem="I8o-w3-vQ7" secondAttribute="bottom" id="2Vm-RY-zOO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Pi-0Z-K0O" secondAttribute="bottom" constant="50" id="5ok-kT-A0W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Pi-0Z-K0O" secondAttribute="trailing" id="9OP-Ze-uq7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eiT-6J-gVd" secondAttribute="bottom" constant="10" id="JKH-ot-rIW"/>
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NGj-g1-qnt"/>
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Pe2-1J-kpv"/>
                             <constraint firstItem="7Pi-0Z-K0O" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QIT-oV-yH6"/>
                             <constraint firstItem="wrV-VT-ikv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YW3-Gd-P6s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="I8o-w3-vQ7" secondAttribute="trailing" id="avX-CS-ndJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eiT-6J-gVd" secondAttribute="trailing" constant="10" id="tyt-SM-oth"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wrV-VT-ikv" secondAttribute="bottom" constant="20" id="v0s-JP-Rhb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="0Tp-Ac-3jF" id="IWd-AZ-ePM"/>
                         <outlet property="networkLabel" destination="wrV-VT-ikv" id="gPG-p1-MBW"/>
+                        <outlet property="redoButton" destination="d6F-Z7-I3F" id="Fvs-oG-D3d"/>
                         <outlet property="sectionCollectionView" destination="7Pi-0Z-K0O" id="Uip-Kj-bfW"/>
                         <outlet property="titleNavigationBar" destination="I8o-w3-vQ7" id="7h7-n4-495"/>
+                        <outlet property="undoButton" destination="jVd-H3-O0o" id="fSs-UC-cla"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

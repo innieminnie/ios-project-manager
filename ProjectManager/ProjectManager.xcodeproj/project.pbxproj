@@ -14,6 +14,7 @@
 		9A65FD3F2604429100F4B6B0 /* DecodeJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */; };
 		9AA595CA26083A41002E7C98 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA595C926083A41002E7C98 /* HistoryManager.swift */; };
 		9AA595CD26083C3C002E7C98 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA595CC26083C3C002E7C98 /* HistoryTableViewCell.swift */; };
+		9AD9925B2609B59100A76F6C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD9925A2609B59100A76F6C /* NotificationManager.swift */; };
 		9AE07A5125F9D71500C9F434 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5025F9D71500C9F434 /* Mode.swift */; };
 		9AE07A5425F9DA0B00C9F434 /* ProgressStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5325F9DA0B00C9F434 /* ProgressStatus.swift */; };
 		9AE07A5A25FA2DC200C9F434 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5925FA2DC200C9F434 /* Item.swift */; };
@@ -27,6 +28,8 @@
 		D91EE2D025F74482003C86BD /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */; };
 		D91EE2D125F74482003C86BD /* BoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */; };
 		D91EE2D625F86840003C86BD /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */; };
+		D93282BE2609964F0062B0C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D93282C02609964F0062B0C3 /* Localizable.strings */; };
+		D93282C9260A0EFC0062B0C3 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93282C8260A0EFC0062B0C3 /* Extension.swift */; };
 		D9EAB41E26064A5D0007F8B7 /* ProjectFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,8 +39,12 @@
 		9A56C5A9260841F800573BF3 /* HistoryLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryLog.swift; sourceTree = "<group>"; };
 		9A59AED425FAE83A00643302 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeJSON.swift; sourceTree = "<group>"; };
+		9A743383260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9A743384260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		9A743385260ACF4700212DF8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9AA595C926083A41002E7C98 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		9AA595CC26083C3C002E7C98 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		9AD9925A2609B59100A76F6C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		9AE07A5025F9D71500C9F434 /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		9AE07A5325F9DA0B00C9F434 /* ProgressStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStatus.swift; sourceTree = "<group>"; };
 		9AE07A5925FA2DC200C9F434 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -53,6 +60,10 @@
 		D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
 		D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardTableViewCell.xib; sourceTree = "<group>"; };
 		D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewCell.swift; sourceTree = "<group>"; };
+		D93282B82609875C0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D93282B92609875C0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		D93282BF2609964F0062B0C3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D93282C8260A0EFC0062B0C3 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,11 +81,12 @@
 		9A59AED825FAEC6000643302 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9A59AED425FAE83A00643302 /* Board.swift */,
 				9A32B08A260192C800C58CFB /* BoardManager.swift */,
 				9AA595C926083A41002E7C98 /* HistoryManager.swift */,
 				D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */,
-				9AE07A5925FA2DC200C9F434 /* Item.swift */,
+				9AD9925A2609B59100A76F6C /* NotificationManager.swift */,
 				9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
 			);
@@ -128,6 +140,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				D93282C02609964F0062B0C3 /* Localizable.strings */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -147,9 +160,18 @@
 				9AE07A4A25F9D23200C9F434 /* Supporting Files */,
 				9A59AED825FAEC6000643302 /* Model */,
 				9AE07A4C25F9D2F800C9F434 /* ViewController */,
+				D93282C7260A0EAB0062B0C3 /* Extensions */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D93282C7260A0EAB0062B0C3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D93282C8260A0EFC0062B0C3 /* Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +190,8 @@
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -193,8 +217,12 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				fr,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,6 +237,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D93282BE2609964F0062B0C3 /* Localizable.strings in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				D91EE2D125F74482003C86BD /* BoardTableViewCell.xib in Resources */,
@@ -235,6 +264,8 @@
 				9AA595CA26083A41002E7C98 /* HistoryManager.swift in Sources */,
 				9A56C5AA260841F800573BF3 /* HistoryLog.swift in Sources */,
 				9AA595CD26083C3C002E7C98 /* HistoryTableViewCell.swift in Sources */,
+				9AD9925B2609B59100A76F6C /* NotificationManager.swift in Sources */,
+				D93282C9260A0EFC0062B0C3 /* Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D91EE2D625F86840003C86BD /* SectionCollectionViewCell.swift in Sources */,
@@ -250,6 +281,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C7431F0C25F51E1D0094C4CF /* Base */,
+				D93282B92609875C0062B0C3 /* ko */,
+				9A743384260ACF4700212DF8 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -258,8 +291,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				C7431F1125F51E1E0094C4CF /* Base */,
+				D93282B82609875C0062B0C3 /* ko */,
+				9A743383260ACF4700212DF8 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D93282C02609964F0062B0C3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D93282BF2609964F0062B0C3 /* ko */,
+				9A743385260ACF4700212DF8 /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -269,6 +313,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -330,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

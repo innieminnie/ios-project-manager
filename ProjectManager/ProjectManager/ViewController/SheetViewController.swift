@@ -32,13 +32,15 @@ class SheetViewController: UIViewController {
         }
         
         self.dismiss(animated: true, completion: nil)
+        
+        notificationManager.configureNotification(name: "\(currentItem.dueDate)", date: currentItem.dueDate)
     }
     
     @IBAction private func tappedModeButton(_ sender: UIBarButtonItem) {
-        if sender.title == Mode.editable.barButtonTitle {
+        if sender.title == Mode.editable.barButtonTitle.localized {
             self.dismiss(animated: true, completion: nil)
         } else {
-            sender.title = Mode.editable.barButtonTitle
+            sender.title = Mode.editable.barButtonTitle.localized
             mode = .editable
             checkOfModifiable(status: Mode.editable)
         }
@@ -61,7 +63,7 @@ class SheetViewController: UIViewController {
 extension SheetViewController {
     private func configureSheet() {
         if let mode = self.mode {
-            self.modeButtonItem.title = mode.barButtonTitle
+            self.modeButtonItem.title = mode.barButtonTitle.localized
             checkOfModifiable(status: mode)
         }
         
