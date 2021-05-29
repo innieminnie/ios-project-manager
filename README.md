@@ -17,7 +17,25 @@
 
 ---
 ## 주요 학습 내용
-### Point 1) 주요 구현 사항
+- 테이블뷰의 Drag and Drop 구현
+    - [SectionCollectionViewCell의 일정 상태 변경 (Drag And Drop) 기능](#sectioncollectionviewcell의-일정-상태-변경-drag-and-drop-기능)
+- Date Picker를 통한 날짜입력
+- 로컬 디스크 캐시 구현
+- 지역화(localization) 구현
+- Local Notification의 활용
+- Undo Manager의 활용
+    - [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
+
+## 트러블슈팅 모아보기
+- [:thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?   (CollectionViewCell내 TableView 중첩시키기)](#thinking-다수의-tableview를-어떤-방식으로-배치할-것인가-collectionviewcell내-tableview-중첩시키기)
+- [:thinking: 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?](#thinking-같은-tableview-내에서의-아이템-이동-시-셀의-아이템-변경이-알맞게-구현되지-않는다)
+- [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
+- [:thinking: SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?](#thinking-sheetviewcontroller에서-새로운-할-일-item-생성-후-sectioncollectionviewcell에-해당-item을-어떻게-전달할까)
+- [:thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?](#thinking-일정-추가-기능과-일정-수정-기능의-구현부를-공통적으로-추출할-수-있지-않을까)
+- [:thinking: 히스토리 내역을 로컬디스크에 저장할까?](#thinking-히스토리-내역을-로컬디스크에-저장할까)
+
+---
+## Point 1) 주요 구현 사항
 | ViewController | 기능 |
 | - | - |
 | ProjectManagerViewController | 칸반보드 표현 및 기능을 위한 버튼 제공
@@ -25,34 +43,9 @@
 | HistoryViewController | 이전 수행 목록 제공 |
 <br>
 
-- <b>a) ProjectManagerViewController</b>
-    - ProjectManagerViewController의 구조
-    - SectionCollectionViewCell의 일정 상태 변경 (Drag And Drop) 기능
-    - ProjectManagerViewController의 되돌리기/다시수행하기 (undo/redo) 기능
-    <br>
-- <b>b) SheetViewController</b>
-    - SheetViewController의 일정 추가 기능
-    - SheetViewController의 일정 내용 수정 기능
-    <br>
-- <b>c) HistoryViewController</b>
-    <br>
-
-### Point 2) 로컬디스크캐시
-### Point 3) 지역화
-
-## 트러블슈팅 모아보기
-- 🤔 3개의 TableView를 어떤 방식으로 배치할 것인가?<br> (3개의 TableView vs CollectionViewCell내 TableView 중첩시키기)
-- 🤔 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?
-- 🤔 Undo/Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?
-- 🤔 SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?
-- 🤔 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?
-- 🤔 "히스토리 내역을 로컬디스크에 저장해놓을 필요가 있을까?"
-
----
-## Point 1) 주요 구현 사항
-## a) ProjectManagerViewController
+## ProjectManagerViewController
 ### ProjectManagerViewController의 구조
-#### 🤔 3개의 TableView를 어떤 방식으로 배치할 것인가?<br> (3개의 TableView vs CollectionViewCell내 TableView 중첩시키기)
+### :thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?(CollectionViewCell내 TableView 중첩시키기)
 - 고민점
     1. 3개 각각의 UITableView ( todoTableView, doingTableView, doneTableView) 를 하나의 View 내부에 배치하기
 
@@ -70,7 +63,7 @@
     - 하나의 SectionCollectionViewCell에서 하나의 boardTableView만 관리합니다.
     - boardTableView는 하나의 Board타입이 갖는 item의 배열만 대상으로 하여 tableViewCell에 표시합니다.<br><br>
 ### SectionCollectionViewCell의 일정 상태 변경 (Drag And Drop) 기능
-UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하여 상태 변경을 구현했습니다.
+<b>UITableViewDragDelegate</b> 와  <b>UITableViewDropDelegate</b> 프로토콜을 준수하여 상태 변경을 구현했습니다.
 - UITableViewDragDelegate
     ```swift
      func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -119,7 +112,7 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
     ```
     destinationIndexPath (이동할 위치) 를 인식한 후, <b>coordinator.session.loadObjects</b> 에서 전달받은 정보를 알맞은 위치에 배치합니다.
 
-#### 🤔 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?
+### :thinking: 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?
 - <b>문제점</b><br>
     SectionCollectionViewCell의 TableView에서 다른 SectionCollectionViewCell의 TableView로 이동 시, 기능이 적절하게 구현되었지만 같은 TableView내에서 이동 시(reordering) drag하는 item이 drag하는 아이템 내용이 복사되어 drop하는 곳에 중복되어 표시가 되었습니다.<br><br>
 
@@ -151,7 +144,7 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
     ![projectmanager_undoredo](/image/ProjectManager_undoredo.png)
         <p align="center"><img src = "/image/ProjectManager_undoredo.gif" width="500px"></p>
 
-#### 🤔 Undo/Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?
+### :thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?
 - 고민점<br>
     Undo/Redo 버튼의 액션은 ProjectManagerViewController에서 수행하지만, Undo/Redo의 대상은 SectionCollectionViewCell의 board에 담긴 item이다. Undo/Redo의 대상에게 어떻게 버튼 탭 액션에 따른 기능 수행을 요구해야할까?
 
@@ -173,14 +166,13 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
     | SectionCollectionViewCell | registerRedoMoving(_ indexPaths: [IndexPath], _ sourceBoard: Board, _ sourceTableView: UITableView, _ sourceIndexPaths: [IndexPath], _ destinationBoard: Board, _ destinationBoardTableView: UITableView) | item 이동에 대한 redo 등록 |
 
 ---
-
-## b) SheetViewController
+## SheetViewController
 ### SheetViewController의 일정 추가 기능
 - ProjectManagerViewController의 UINavigationBar의 '+' 버튼: 새로운 할 일을 작성한다.
 
     ![projectmanager_sheetviewcontroller](/image/ProjectManager_sheetviewcontroller.png)
         <p align="center"><img src = "/image/ProjectManager_sheetviewcontroller.gif" width="500px"></p>
-#### 🤔 SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?
+### :thinking: SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?
 - 고민점<br>
     ProjectManagerViewController에서 '+' 버튼을 통해 modal로 present된 SheetViewController에서 새로운 할 일 등록 작업을 한 후, TODO 섹션에 해당하는 SectionCollectionViewCell의 tableView에 아이템이 추가되어야 합니다. <b>SectionCollectionViewCell 와 SheetViewController간의 관계</b>를 직접적으로 연결하는 구조를 피하기 위해 ProjectManagerViewController로 간접적으로 거쳐갈 수 있는 구조로 해당 기능을 수행하는 방향에 대해 고민했습니다.<br><br>
 - 해결 방안<br>
@@ -260,7 +252,7 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
 <p align="center"><img src = "/image/ProjectManager_editmode.gif" width="500px"></p>
 - 수정하고자 하는 일정 내용이 담긴 cell 을 tap 하여 수정한다.
 
-#### 🤔 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?
+### :thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?
 - 고민점<br>
     해당 두 기능에 대해 <b>일정이 새로운 것이냐 / 일정이 이미 작성된 것이냐의 차이</b>를 지니고 있지만,<br> <b>SheetViewController에서 작성한 내용을 ProjectManagerViewController로 전달하는 flow가 동일하다</b>고 생각되었습니다. 이를 공통된 메소드로 추출할 수 있는 방법에 대해 고민해보았습니다.<br><br>
 - 해결방안<br>
@@ -336,13 +328,13 @@ UITableViewDragDelegate 와  UITableViewDropDelegate 프로토콜을 준수하�
 
     
 ---
-## c) HistoryViewController
+## HistoryViewController
 - UINavigationBar의 'history' 버튼:  할 일 생성/이동/삭제에 대한 기록을 저장한다.
     ![projectmanager_historyviewcontroller](/image/ProjectManager_historyviewcontroller.png)
         <p align="center"><img src = "/image/ProjectManager_historyviewcontroller.gif" width="500px"></p>
     HistoryViewController는 <b>UITableViewDataSource 프로토콜</b>을 준수합니다. 해당 ViewController의 <b>tableView는 히스토리 정보를 표현할 뿐,</b> tableView에 대한 어떠한 액션을 수행하는 것은 필요하지 않다 생각되어 UITableViewDelegate 프로토콜을 따로 준수하지 않습니다.
 
-#### 🤔 "히스토리 내역을 로컬디스크에 저장해놓을 필요가 있을까?"
+### :thinking: "히스토리 내역을 로컬디스크에 저장할까?"
 - 고민점<br>
     앱의 할일 리스트(todo, doing, done) 전체와 비교해보았을 때, 인앱 상황에서 변경되는 히스토리들은 앱이 켜져있는 동안의 히스토리만 보여주자고 팀원과 의논해보았습니다. 만약 히스토리 내역 또한 로컬디스크에 캐싱을 한다면 데이터의 축적으로 인한 cache 관리 작업도 지속적으로 해줘야하고, 사용자에겐 <b>'언제' '어떤 것'이 '어떻게 변경' 되었는지</b>에 대한 정보보단 <b>'현재 할 일의 상태'</b>를 보여주는 것이 적합하다고 생각했습니다.<br><br>
 - 해결방안<br>
