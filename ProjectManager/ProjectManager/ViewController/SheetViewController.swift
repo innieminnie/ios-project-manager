@@ -71,17 +71,20 @@ extension SheetViewController {
         self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.timeStamp))
         self.descriptionTextView.text = currentItem.description
         self.descriptionTextView.autocapitalizationType = .none
+        
+        self.titleTextField.layer.borderWidth = 0.5
+        self.descriptionTextView.layer.borderWidth = 0.5
     }
     
     private func checkOfModifiable(status: Mode) {
         switch status {
         case .editable:
             self.titleTextField.isUserInteractionEnabled = true
-            self.deadlineDatePicker.isUserInteractionEnabled = true
+            self.deadlineDatePicker.isEnabled = true
             self.descriptionTextView.isEditable = true
         case .readOnly:
             self.titleTextField.isUserInteractionEnabled = false
-            self.deadlineDatePicker.isUserInteractionEnabled = false
+            self.deadlineDatePicker.isEnabled = false
             self.descriptionTextView.isEditable = false
         }
     }
