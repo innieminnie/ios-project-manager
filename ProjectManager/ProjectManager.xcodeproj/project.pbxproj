@@ -98,6 +98,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -161,7 +162,6 @@
 				9A59AED825FAEC6000643302 /* Model */,
 				9AE07A4C25F9D2F800C9F434 /* ViewController */,
 				D93282C7260A0EAB0062B0C3 /* Extensions */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
