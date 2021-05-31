@@ -1,8 +1,9 @@
 import UIKit
 import MobileCoreServices
 
-protocol AddItemDelegate: AnyObject {
+protocol BoardTableViewDelegate: AnyObject {
     func addNewCell(with item: Item)
+    func updateCell(at index: Int, with item: Item)
 }
 
 class SectionCollectionViewCell: UICollectionViewCell {
@@ -47,13 +48,17 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
         
         if editingStyle == .delete {
-            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
-            notificationManager.removeNofitication(name: "\(board.item(at: indexPath.row).dueDate)")
-            historyManager.historyContainer.append((historyLog, Date()))
-            registerUndoDeleting(with: board.item(at: indexPath.row), at: indexPath.row)
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
+            
+            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
+            historyManager.historyContainer.append((historyLog, Date()))
+            
+            notificationManager.removeNofitication(name: "\(board.item(at: indexPath.row).dueDate)")
+            
+            registerUndoDeleting(with: board.item(at: indexPath.row), at: indexPath.row)
+
             NotificationCenter.default.post(name: NSNotification.Name("reloadRewindable"), object: nil)
             projectFileManager.updateFile()
         }
@@ -161,9 +166,10 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
     }
 }
 
-// MARK: - AddItemDelegate
+// MARK: - BoardTableViewDelegate
 
-extension SectionCollectionViewCell: AddItemDelegate {
+extension SectionCollectionViewCell: BoardTableViewDelegate {
+    
     func addNewCell(with item: Item) {
         if let board = self.board {
             board.addItem(item)
@@ -171,6 +177,13 @@ extension SectionCollectionViewCell: AddItemDelegate {
             updateHeaderLabels(with: board)
             self.registerUndoCreating()
             NotificationCenter.default.post(name: NSNotification.Name("reloadRewindable"), object: nil)
+        }
+    }
+    
+    func updateCell(at index: Int, with item: Item) {
+        if let board = self.board {
+            board.updateItem(at: index, with: item)
+            boardTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         }
     }
 }

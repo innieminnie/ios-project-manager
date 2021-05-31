@@ -14,7 +14,7 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     @IBOutlet weak var networkLabel: UILabel!
     
-    weak var delegate: AddItemDelegate?
+    weak var delegate: BoardTableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +118,7 @@ extension ProjectManagerViewController {
             
             let historyLog = HistoryLog.add(newItem.title)
             historyManager.historyContainer.append((historyLog, Date()))
+            
             projectFileManager.updateFile()
         }
     }
@@ -127,8 +128,18 @@ extension ProjectManagerViewController {
         let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.readOnly)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
-            board.updateItem(at: index, with: currentItem)
-            boardTableViewCell.updateUI(with: currentItem)
+            switch board.title {
+            case ProgressStatus.todo.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
+            case ProgressStatus.doing.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,1]) as? SectionCollectionViewCell
+            case ProgressStatus.done.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,2]) as? SectionCollectionViewCell
+            default:
+                break
+            }
+
+            self.delegate?.updateCell(at: index, with: currentItem)
             projectFileManager.updateFile()
         }
     }
