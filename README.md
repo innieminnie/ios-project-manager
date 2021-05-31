@@ -20,18 +20,19 @@
 - 테이블뷰의 Drag and Drop 구현
     - [SectionCollectionViewCell의 일정 상태 변경 (Drag And Drop) 기능](#sectioncollectionviewcell의-일정-상태-변경-drag-and-drop-기능)
 - Date Picker를 통한 날짜입력
-- 로컬 디스크 캐시 구현
-- 지역화(localization) 구현
-- Local Notification의 활용
 - Undo Manager의 활용
     - [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
+- 로컬 디스크 캐시 구현
+    - [iOS File System 및 FileManager 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/filesystem/filemanager/2021/05/30/FileManager.html)
+    - [Point 2) 로컬디스크캐시](#point-2-로컬디스크캐시)
+- 지역화(localization) 구현
 
 ## 트러블슈팅 모아보기
 - [:thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?   (CollectionViewCell내 TableView 중첩시키기)](#thinking-다수의-tableview를-어떤-방식으로-배치할-것인가-collectionviewcell내-tableview-중첩시키기)
 - [:thinking: 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?](#thinking-같은-tableview-내에서의-아이템-이동-시-셀의-아이템-변경이-알맞게-구현되지-않는다)
 - [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
 - [:thinking: SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?](#thinking-sheetviewcontroller에서-새로운-할-일-item-생성-후-sectioncollectionviewcell에-해당-item을-어떻게-전달할까)
-- [:thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?](#thinking-일정-추가-기능과-일정-수정-기능의-구현부를-공통적으로-추출할-수-있지-않을까)
+- [:thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?(CompletinHandler 활용하기)](#thinking-일정-추가-기능과-일정-수정-기능의-구현부를-공통적으로-추출할-수-있지-않을까)
 - [:thinking: 히스토리 내역을 로컬디스크에 저장할까?](#thinking-히스토리-내역을-로컬디스크에-저장할까)
 
 ---
@@ -282,7 +283,7 @@
         self.dismiss(animated: true, completion: nil)
     }
     ```
-    <b>SheetViewController</b> 의 프로퍼티 <b>completinHandler</b>의 재사용 방식을 택했습니다.<br>
+    <b>SheetViewController</b> 의 프로퍼티 <b>completionHandler</b>의 재사용 방식을 택했습니다.<br>
     <b>tappedDoneButton</b> 메소드는 일정추가 혹은 일정수정 행동을 완료할 때 공통적으로 호출되기에 해당 과정에서 completionHandler로 설정하는 내용에 따라 다른 방식으로 동작합니다.<br><br>
 
     새로운 일정을 추가할 때, 
@@ -352,10 +353,53 @@
     ``` 
     <br>
 
-    <b>싱글톤패턴</b> 사용 이유
-        -  앱 전역에서 발생하는 아이템 생성/이동/삭제 관련 내용에 대해 전부 추적해야하기 위해 싱글톤 HistoryManager 내의 historyContainer에 해당 내역들을 담아 tableView로 표현했습니다.<br><br>
+    #### 싱글톤패턴 사용 이유
+    -  앱 전역에서 발생하는 아이템 생성/이동/삭제 관련 내용에 대해 전부 추적해야하기 위해 싱글톤 HistoryManager 내의 historyContainer에 해당 내역들을 담아 tableView로 표현했습니다.<br><br>
 ---
 ## Point 2) 로컬디스크캐시
+[iOS File System 및 FileManager 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/filesystem/filemanager/2021/05/30/FileManager.html)<br>
+### ProjectFileManager(Singleton)
+- <b>FileManager.default</b>를 활용하여 유저가 item 생성 / 수정 / 이동 / 삭제 등 작업을 할 때 해당 내역이 로컬디스크캐시에 업데이트 합니다.
+
+- 유저가 파일의 내용에 대해 읽기/쓰기 작업이 가능해야하므로 <b>Documents</b> 디렉토리에 접근하도록 합니다.
+- ProjectFileManager 생성시, 설정한 파일 위치에 파일의 존재를 확인하고 없으면 생성합니다.
+```swift
+private lazy var documentsURL: URL = {
+    return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+}()
+    
+private lazy var fileURL: URL = {
+    return documentsURL.appendingPathComponent("JSONFile.json")
+}()
+
+private init() {
+    guard fileManager.fileExists(atPath: fileURL.path) else {
+        fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
+        return
+    }
+}
+```
+- <b>setItems() -> [Item]</b>: 앱이 실행된 이후 파일 읽기 및 파일의 데이터를 JSONDecoder를 통해 [Item]으로 파싱합니다.
+- <b>updateFile()</b>: item의 생성/수정/삭제/이동에 따라 파일내용도 업데이트 합니다.
+
+```swift
+func setItems() -> [Item] {
+    do {
+        let savedData = try Data(contentsOf: fileURL)
+        if let savedItems = decoder.decodeJSONFile(data: savedData, type: [Item].self) {
+            return savedItems
+        }
+    } catch {
+        print("데이터 로딩 실패")
+    }
+    return []
+}
+    
+func updateFile() {
+    let data = try! JSONEncoder().encode(allItems)
+    try? data.write(to: fileURL)
+}
+```
 
 ---
 ## Point 3) 지역화
