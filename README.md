@@ -19,22 +19,24 @@
 ## 주요 학습 내용
 - 테이블뷰의 Drag and Drop 구현
     - [SectionCollectionViewCell의 일정 상태 변경 (Drag And Drop) 기능](#sectioncollectionviewcell의-일정-상태-변경-drag-and-drop-기능)
-- Date Picker를 통한 날짜입력
+    - [:thinking: 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?](#thinking-같은-tableview-내에서의-아이템-이동-시-셀의-아이템-변경이-알맞게-구현되지-않는다)
 - Undo Manager의 활용
     - [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
 - 로컬 디스크 캐시 구현
     - [iOS File System 및 FileManager 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/filesystem/filemanager/2021/05/30/FileManager.html)
     - [Point 2) 로컬디스크캐시](#point-2-로컬디스크캐시)
 - 지역화(localization) 구현
+    - [지역화 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/localization/internalization/2021/06/02/Localization.html)
 
 ## 트러블슈팅 모아보기
-- [:thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?   (CollectionViewCell내 TableView 중첩시키기)](#thinking-다수의-tableview를-어떤-방식으로-배치할-것인가-collectionviewcell내-tableview-중첩시키기)
+- [:thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?   (CollectionViewCell내 TableView 배치하기)](#thinking-다수의-tableview를-어떤-방식으로-배치할-것인가-collectionviewcell내-tableview-배치하기)
 - [:thinking: 같은 TableView 내에서의 아이템 이동 시 셀의 아이템 변경이 알맞게 구현되지 않는다?](#thinking-같은-tableview-내에서의-아이템-이동-시-셀의-아이템-변경이-알맞게-구현되지-않는다)
 - [:thinking: Undo와Redo 버튼의 동작 인식과 동작 수행을 모두 ProjectManagerViewController에서 다뤄야 할까?](#thinking-undo와redo-버튼의-동작-인식과-동작-수행을-모두-projectmanagerviewcontroller에서-다뤄야-할까)
-- [:thinking: SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?](#thinking-sheetviewcontroller에서-새로운-할-일-item-생성-후-sectioncollectionviewcell에-해당-item을-어떻게-전달할까)
-- [:thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?(CompletinHandler 활용하기)](#thinking-일정-추가-기능과-일정-수정-기능의-구현부를-공통적으로-추출할-수-있지-않을까)
+- [:thinking: SheetViewController에서 새로운 할 일 (item) 생성 후 SectionCollectionViewCell에 해당 item을 어떻게 전달할까?(CompletionHandler 활용하기)](#thinking-sheetviewcontroller에서-새로운-할-일-item-생성-후-sectioncollectionviewcell에-해당-item을-어떻게-전달할까)
+- [:thinking: 일정 추가 기능과 일정 수정 기능의 구현부를 공통적으로 추출할 수 있지 않을까?(CompletionHandler 활용성 높이기)](#thinking-일정-추가-기능과-일정-수정-기능의-구현부를-공통적으로-추출할-수-있지-않을까)
+- [:thinking: 일정 수정 후, 일정을 나타내는 BoardTableViewCell의 layout이 업데이트 되지 않는다?](#thinking-일정-수정-후-일정을-나타내는-boardtableviewcell의-layout이-업데이트-되지-않는다)
 - [:thinking: 히스토리 내역을 로컬디스크에 저장할까?](#thinking-히스토리-내역을-로컬디스크에-저장할까)
-
+- [:thinking: HistoryLog 출력시, description을 자동으로 출력할 순 없을까?](#thinking-historylog-출력시-description을-자동으로-출력할-순-없을까)
 ---
 ## Point 1) 주요 구현 사항
 | ViewController | 기능 |
@@ -46,7 +48,7 @@
 
 ## ProjectManagerViewController
 ### ProjectManagerViewController의 구조
-### :thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?(CollectionViewCell내 TableView 중첩시키기)
+### :thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?(CollectionViewCell내 TableView 배치하기)
 - 고민점
     1. 3개 각각의 UITableView ( todoTableView, doingTableView, doneTableView) 를 하나의 View 내부에 배치하기
 
@@ -177,13 +179,13 @@
 - 고민점<br>
     ProjectManagerViewController에서 '+' 버튼을 통해 modal로 present된 SheetViewController에서 새로운 할 일 등록 작업을 한 후, TODO 섹션에 해당하는 SectionCollectionViewCell의 tableView에 아이템이 추가되어야 합니다. <b>SectionCollectionViewCell 와 SheetViewController간의 관계</b>를 직접적으로 연결하는 구조를 피하기 위해 ProjectManagerViewController로 간접적으로 거쳐갈 수 있는 구조로 해당 기능을 수행하는 방향에 대해 고민했습니다.<br><br>
 - 해결 방안<br>
-    1) 새로운 아이템 작성하기 위해 추가 버튼 탭할 때, <b>AddItemDelegate 프로토콜</b> 활용
+    1) 새로운 아이템 작성하기 위해 추가 버튼 탭할 때, <b>AddItemDelegate 프로토콜</b> 커스텀 작성
     2) 아이템에 대한 내용 작성 완료 후 SheetViewController의 modal 화면을 내릴 때, <b>updateItemHandler 메소드 (completionHandler)</b> 활용 
     
     | 타입명 | 수행 기능 |
     | - | - |
     |SectionCollectionViewCell| AddItemDelegate 프로토콜 준수 및 addNewCell 메소드 작성 |
-    |ProjectManagerViewController|1) weak var delegate: AddItemDelegate <br>todoBoard를 대상으로 하는 SectionCollectionViewCell 설정<br> 2) SheetViewController의 updateItemHandler 호출 |
+    |ProjectManagerViewController|1) weak var delegate: AddItemDelegate <br> -> todoBoard를 대상으로 하는 SectionCollectionViewCell 설정<br> 2) SheetViewController의 updateItemHandler 호출 |
     |SheetViewController|1) var completionHandler: ((Item) -> Void)?<br> 2) updateItemHandler(handler: @escaping (_ item: Item) -> Void) 작성 | 
     <b>SectionCollectionViewCell</b>
     ```swift
@@ -327,6 +329,73 @@
     - 일정 추가 시에는 새로운 item을 대상으로 presentedSheetViewController (SheetViewController)의 updateItemHandler 내에서 생성 및 TODO 에 해당 item을 추가합니다.
     - 일정 수정 시에는 선택한 item을 대상으로 updateItemHandler 내에서 update 작업을 진행합니다.
 
+### :thinking: 일정 수정 후, 일정을 나타내는 BoardTableViewCell의 layout이 업데이트 되지 않는다?
+- 문제점
+    BoardTableViewCell의 descriptionLabel의 numberOfLines = 3 으로 설정되어, 최대 3줄까지 내용이 보여야합니다. 하지만 cell이 최초 생성된 시점의 descriptionLabel의 text의 줄 갯수가 내용 업데이트에 맞게 조정되지 않습니다.
+    ![ProjectMananger_boardtableviewcell](/image/ProjectManager_boardtableviewcell.png)<br><br>
+
+- 원인
+    기존 일정을 수정할 때,
+    ```swift
+    //ProjectManagerViewController.swift
+
+    private func updateItem(in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
+        let item = board.item(at: index) // 선택한 item
+        let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.readOnly)
+        
+        presentedSheetViewController.updateItemHandler { (currentItem) in
+            board.updateItem(at: index, with: currentItem)
+            boardTableViewCell.updateUI(with: currentItem)
+            projectFileManager.updateFile()
+        }
+    }
+    ```
+    updateItemHandler의 클로저 내에서 내용 및 UI 업데이트 작업을 진행하지만, cell이 재사용되는 것이 아니기에 cell의 layout은 업데이트가 진행되지 않습니다. boardTableView의 해당 cell이 배치된 곳의 row가 reload되어야합니다. 
+    <br>
+- 해결방안
+    새로운 일정을 추가할 때, updateItemHandler의 클로저 내에서 delegate를 통해 BoardTableView에 접근한 것과 마찬가지의 방식을 활용하여 개선해보았습니다.
+
+    <br>프로토콜 AddItemDelegate -> BoardTableViewDelegate 로 네이밍 변경 <br> 
+    
+    | BoardTableViewDelegate | 요약 |
+    |:-:|:-:|
+    |func addNewCell(with item: Item) | 새로운 아이템 추가시, TableView에 cell 추가|
+    func updateCell(at index: Int, with item: Item)| 아이템 수정 시, 해당 cell reload를 통한 업데이트 |
+
+    ```swift
+    //ProjectManagerViewController.swift
+
+     private func updateItem(in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
+        let item = board.item(at: index)
+        let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.readOnly)
+        
+        presentedSheetViewController.updateItemHandler { (currentItem) in
+            switch board.title {
+            case ProgressStatus.todo.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
+            case ProgressStatus.doing.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,1]) as? SectionCollectionViewCell
+            case ProgressStatus.done.rawValue:
+                self.delegate = self.sectionCollectionView.cellForItem(at: [0,2]) as? SectionCollectionViewCell
+            default:
+                break
+            }
+
+            self.delegate?.updateCell(at: index, with: currentItem)
+            projectFileManager.updateFile()
+        }
+    }
+    ```
+    updateCell 내에 boardTableView.reloadRows() 를 진행하여 UI의 layout을 업데이트합니다.
+    ```swift
+    //SectionCollectionViewCell.swift
+     func updateCell(at index: Int, with item: Item) {
+        if let board = self.board {
+            board.updateItem(at: index, with: item)
+            boardTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        }
+    }
+    ```
     
 ---
 ## HistoryViewController
@@ -335,7 +404,7 @@
         <p align="center"><img src = "/image/ProjectManager_historyviewcontroller.gif" width="500px"></p>
     HistoryViewController는 <b>UITableViewDataSource 프로토콜</b>을 준수합니다. 해당 ViewController의 <b>tableView는 히스토리 정보를 표현할 뿐,</b> tableView에 대한 어떠한 액션을 수행하는 것은 필요하지 않다 생각되어 UITableViewDelegate 프로토콜을 따로 준수하지 않습니다.
 
-### :thinking: "히스토리 내역을 로컬디스크에 저장할까?"
+### :thinking: 히스토리 내역을 로컬디스크에 저장할까?
 - 고민점<br>
     앱의 할일 리스트(todo, doing, done) 전체와 비교해보았을 때, 인앱 상황에서 변경되는 히스토리들은 앱이 켜져있는 동안의 히스토리만 보여주자고 팀원과 의논해보았습니다. 만약 히스토리 내역 또한 로컬디스크에 캐싱을 한다면 데이터의 축적으로 인한 cache 관리 작업도 지속적으로 해줘야하고, 사용자에겐 <b>'언제' '어떤 것'이 '어떻게 변경' 되었는지</b>에 대한 정보보단 <b>'현재 할 일의 상태'</b>를 보여주는 것이 적합하다고 생각했습니다.<br><br>
 - 해결방안<br>
@@ -355,14 +424,48 @@
 
     #### 싱글톤패턴 사용 이유
     -  앱 전역에서 발생하는 아이템 생성/이동/삭제 관련 내용에 대해 전부 추적해야하기 위해 싱글톤 HistoryManager 내의 historyContainer에 해당 내역들을 담아 tableView로 표현했습니다.<br><br>
+
+### :thinking: HistoryLog 출력시, description을 자동으로 출력할 순 없을까?
+- 고민점<br>
+```swift
+enum HistoryLog {
+    case add(String)
+    case move(String, String, String)
+    case delete(String, String)
+
+    var description: String {
+        switch self {
+        case .add(let title):
+            return "Added '\(title)'."
+        case .move(let title, let before,  let after):
+            return "Moved '\(title)' from \(before) to \(after)."
+        case .delete(let title, let before):
+            return "Removed '\(title)' from \(before)."
+        }
+    }
+}
+```
+
+기존 HistoryLog 타입에 대해 위와 같이 작성하였는데, 코드리뷰를 통해
+![ProjectManager_customconvertiblestring](/image/ProjectManager_customconvertiblestring.png)
+와 같은 제안을 받아 <b>CustomConvertibleString</b>을 적용해보았습니다.
+
+- 해결방안
+```swift
+enum HistoryLog: CustomStringConvertible { 이하 내용 동일 }
+```
+로 수정하니,<br>
+기존 <b>HistoryLog의 인스턴스.description</b> 접근방식에서 
+<b>HistoryLog의 인스턴스</b> 로 변경되었습니다.<br>
+
+또한 HistoryManager의 <b>```var historyContainer = [(String, Date)]()```</b> 도 <b>```var historyContainer = [(HistoryLog, Date)]()```</b> 로 변경하여 더 직관적으로 표현 가능dml 효과와 description까지 접근하지 않아도 HistoryLog의 description 값을 가져올 수 있었습니다.
+
 ---
 ## Point 2) 로컬디스크캐시
 [iOS File System 및 FileManager 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/filesystem/filemanager/2021/05/30/FileManager.html)<br>
 ### ProjectFileManager(Singleton)
 - <b>FileManager.default</b>를 활용하여 유저가 item 생성 / 수정 / 이동 / 삭제 등 작업을 할 때 해당 내역이 로컬디스크캐시에 업데이트 합니다.
 
-- 유저가 파일의 내용에 대해 읽기/쓰기 작업이 가능해야하므로 <b>Documents</b> 디렉토리에 접근하도록 합니다.
-- ProjectFileManager 생성시, 설정한 파일 위치에 파일의 존재를 확인하고 없으면 생성합니다.
 ```swift
 private lazy var documentsURL: URL = {
     return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -379,8 +482,9 @@ private init() {
     }
 }
 ```
-- <b>setItems() -> [Item]</b>: 앱이 실행된 이후 파일 읽기 및 파일의 데이터를 JSONDecoder를 통해 [Item]으로 파싱합니다.
-- <b>updateFile()</b>: item의 생성/수정/삭제/이동에 따라 파일내용도 업데이트 합니다.
+
+- 유저가 파일의 내용에 대해 읽기/쓰기 작업이 가능해야하므로 <b>Documents</b> 디렉토리에 접근하도록 합니다.
+- ProjectFileManager 생성시, 설정한 파일 위치에 파일의 존재를 확인하고 없으면 생성합니다.
 
 ```swift
 func setItems() -> [Item] {
@@ -400,6 +504,42 @@ func updateFile() {
     try? data.write(to: fileURL)
 }
 ```
+|메서드명|설명|
+|:-:|:-:|
+|func setItems() -> [Item]|앱이 실행된 이후 파일 읽기 및 파일의 데이터를 JSONDecoder를 통해 [Item]으로 파싱합니다.|
+|func updateFile()|item의 생성/수정/삭제/이동에 따라 파일내용도 업데이트 합니다.|
+
 
 ---
 ## Point 3) 지역화
+- [지역화 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/localization/internalization/2021/06/02/Localization.html)
+
+해당 프로젝트에서 보여지는 텍스트 (유저가 작성하는 텍스트 제외) 에 대해 한국과 프랑스를 대상으로 지역화를 적용해보았습니다.
+
+### Main.strings 와 Localizable.strings
+스토리보드에서 직접 접근이 가능한 UIComponents에 대해선 <b>Main.strings</b> 파일에서 작성을 해주었고, 액션에 따라 내용이 달라지거나 코드로 접근해야만 하는 경우에 대해선 <b>Localizable.strings</b> 에 작성했습니다.
+
+<b>Localizable.strings</b>
+![ProjectManager_localization](/image/ProjectManager_localization.png)
+
+<b>HistoryLog</b>는 액션에 따라 내용 또한 달라지기에 <b>%@</b> 서식문자를 활용하여 지역화를 적용했습니다.
+
+```swift
+enum HistoryLog: CustomStringConvertible {
+    case add(String)
+    case move(String, String, String)
+    case delete(String, String)
+    
+    var description: String {
+        switch self {
+        case .add(let title):
+            return String(format: NSLocalizedString("Added '%@'.", comment: ""), title)
+        case .move(let title, let before,  let after):
+            return String(format: NSLocalizedString("Moved '%@' from %@ to %@.", comment: ""), title, before.localized, after.localized)
+        case .delete(let title, let before):
+            return String(format: NSLocalizedString("Removed '%@' from %@.", comment: ""), title.localized, before.localized)
+        }
+    }
+}
+
+```
