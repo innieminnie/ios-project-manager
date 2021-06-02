@@ -27,6 +27,7 @@
     - [Point 2) 로컬디스크캐시](#point-2-로컬디스크캐시)
 - 지역화(localization) 구현
     - [지역화 블로그 포스팅 글 보러가기 (페이지 이동)](https://innieminnie.github.io/localization/internalization/2021/06/02/Localization.html)
+    - [Point 3) 지역화](#point-3-지역화)
 
 ## 트러블슈팅 모아보기
 - [:thinking: 다수의 TableView를 어떤 방식으로 배치할 것인가?   (CollectionViewCell내 TableView 배치하기)](#thinking-다수의-tableview를-어떤-방식으로-배치할-것인가-collectionviewcell내-tableview-배치하기)
